@@ -41,23 +41,6 @@ cocktailsRouter.get('/:id', async (req, res) => {
     }
 });
 
-cocktailsRouter.patch('/:id/togglePublished', auth, permit('admin'), async (req, res) => {
-    try {
-        const cocktail = await Cocktail.findById(req.params.id);
-        if (!cocktail) {
-            return res.status(404).send({ error: 'Cocktail not found' });
-        }
-
-        cocktail.isPublished = !cocktail.isPublished;
-
-        await cocktail.save();
-
-        return res.send(cocktail);
-    } catch (e) {
-        return res.status(500).send(e);
-    }
-});
-
 cocktailsRouter.post('/', auth, imagesUpload.single('image'), async (req: RequestWithUser, res, next) => {
     if (!req.user) {
         return res.status(401).send({ error: 'User must be authenticated.' });
@@ -85,6 +68,23 @@ cocktailsRouter.post('/', auth, imagesUpload.single('image'), async (req: Reques
         }
 
         next(e);
+    }
+});
+
+cocktailsRouter.patch('/:id/togglePublished', auth, permit('admin'), async (req, res) => {
+    try {
+        const cocktail = await Cocktail.findById(req.params.id);
+        if (!cocktail) {
+            return res.status(404).send({ error: 'Cocktail not found' });
+        }
+
+        cocktail.isPublished = !cocktail.isPublished;
+
+        await cocktail.save();
+
+        return res.send(cocktail);
+    } catch (e) {
+        return res.status(500).send(e);
     }
 });
 
