@@ -1,10 +1,11 @@
-import express from 'express';
-import Cocktail from '../models/Cocktail';
-import auth, { RequestWithUser } from '../middleware/auth';
-import permit from '../middleware/permit';
-import { clearImages, imagesUpload } from '../multer';
-import { CocktailMutation } from '../types';
-import mongoose from 'mongoose';
+import express from "express";
+import Cocktail from "../models/Cocktail";
+import auth, { RequestWithUser } from "../middleware/auth";
+import { clearImages, imagesUpload } from "../multer";
+import { CocktailMutation } from "../types";
+import mongoose from "mongoose";
+import permit from "../middleware/permit";
+
 
 const cocktailsRouter = express.Router();
 
@@ -46,12 +47,12 @@ cocktailsRouter.post('/', auth, imagesUpload.single('image'), async (req: Reques
         return res.status(401).send({ error: 'User must be authenticated.' });
     }
     const cocktailData: CocktailMutation = {
-        name: req.body.name,
+        title: req.body.title,
         image: req.file ? req.file.filename : null,
         recipe: req.body.recipe,
         isPublished: false,
         user: req.user._id,
-        ingredients: JSON.parse(req.body.ingredients)
+        ingredients: req.body.ingredients
     };
 
     const cocktail = new Cocktail(cocktailData);
