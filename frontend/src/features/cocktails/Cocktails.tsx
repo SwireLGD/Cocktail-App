@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { CircularProgress, Grid, Typography } from "@mui/material";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { fetchCocktails } from "./cocktailsThunks";
 import { selectCocktails, selectFetchLoading } from "./cocktailsSlice";
 import { selectUser } from "../users/usersSlice";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { fetchCocktails } from "./cocktailsThunks";
 import CocktailItem from "./components/CocktailItem";
 
 const Cocktails = () => {

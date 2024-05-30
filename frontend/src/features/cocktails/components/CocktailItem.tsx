@@ -54,7 +54,8 @@ const CocktailItem: React.FC<Props> = ({ _id, title, image, isPublished }) => {
                 <ListItemText
                     primary={title}
                 />
-                {isAdmin && (
+            </ListItem>
+            {isAdmin && (
                     <>
                         <Button onClick={handleTogglePublished} disabled={publishing}>
                             {publishing ? <CircularProgress size={24} /> : (isPublished ? "Unpublish" : "Publish")}
@@ -64,7 +65,6 @@ const CocktailItem: React.FC<Props> = ({ _id, title, image, isPublished }) => {
                         </Button>
                     </>
                 )}
-            </ListItem>
         </List>
     );
 };

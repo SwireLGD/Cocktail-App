@@ -11,7 +11,7 @@ const cocktailsRouter = express.Router();
 
 cocktailsRouter.get('/', async (req, res) => {
     try {
-        const cocktails = await Cocktail.find({ isPublished: true });
+        const cocktails = await Cocktail.find();
         return res.send(cocktails);
     } catch (e) {
         return res.sendStatus(500);
