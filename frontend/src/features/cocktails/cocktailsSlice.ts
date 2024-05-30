@@ -1,6 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Cocktail } from "../../types";
-import { createCocktail, deleteCocktail, fetchCocktails, fetchCocktailsById, fetchMyCocktails, togglePublished } from "./cocktailsThunks";
+import { 
+    createCocktail, deleteCocktail, fetchCocktails, fetchCocktailsById, fetchMyCocktails, togglePublished 
+} from "./cocktailsThunks";
+import { RootState } from "../../app/store";
 
 interface CocktailState {
     items: Cocktail[];
@@ -72,7 +75,7 @@ export const cocktailsSlice = createSlice({
         });
         builder.addCase(togglePublished.fulfilled, (state, { payload }) => {
             state.publishing = false;
-            const index = state.items.findIndex((cocktail) => cocktail._id === payload._id);
+            const index = state.items.findIndex(cocktail => cocktail._id === payload._id);
             if (index !== -1) {
                 state.items[index].isPublished = payload.isPublished;
             }
@@ -91,4 +94,14 @@ export const cocktailsSlice = createSlice({
             state.deleting = false;
         });
     },
-})
+});
+
+export const cocktailsReducer = cocktailsSlice.reducer;
+
+export const selectCocktails = (state: RootState) => state.cocktails.items;
+export const selectMyCocktails = (state: RootState) => state.cocktails.myCocktails;
+export const selectedCocktail = (state: RootState) => state.cocktails.selectedCocktail;
+export const selectFetchLoading = (state: RootState) => state.cocktails.fetchLoading;
+export const selectCreateLoading = (state: RootState) => state.cocktails.createLoading;
+export const selectPublishing = (state: RootState) => state.cocktails.publishing;
+export const selectDeleting = (state: RootState) => state.cocktails.deleting;
