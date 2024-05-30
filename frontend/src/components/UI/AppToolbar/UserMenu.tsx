@@ -48,7 +48,7 @@ const UserMenu: React.FC<Props> = ({ user }) => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
             >
-                <MenuItem onClick={handleClose} component={Link} to="/my">My cocktails</MenuItem>
+                <MenuItem onClick={handleClose} component={Link} to="/cocktails/my">My cocktails</MenuItem>
                 <MenuItem onClick={handleClose} component={Link} to="/new-album">Add album</MenuItem>
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </Menu>

@@ -6,7 +6,7 @@ import { selectCocktails, selectFetchLoading } from "./cocktailsSlice";
 import { selectUser } from "../users/usersSlice";
 import CocktailItem from "./components/CocktailItem";
 
-const Cocktails = () => {
+const MyCocktails = () => {
     const dispatch = useAppDispatch();
     const cocktails = useAppSelector(selectCocktails);
     const isLoading = useAppSelector(selectFetchLoading);
@@ -17,7 +17,7 @@ const Cocktails = () => {
     }, [dispatch]);
 
     const filteredCocktails = cocktails.filter(cocktail =>
-        cocktail.isPublished || (user?.role === 'admin')
+        cocktail.user === user?._id
     );
 
     return (
@@ -50,4 +50,4 @@ const Cocktails = () => {
     );
 };
 
-export default Cocktails;
+export default MyCocktails;
