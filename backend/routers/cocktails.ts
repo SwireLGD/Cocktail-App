@@ -46,13 +46,21 @@ cocktailsRouter.post('/', auth, imagesUpload.single('image'), async (req: Reques
     if (!req.user) {
         return res.status(401).send({ error: 'User must be authenticated.' });
     }
+
+    let ingredients;
+    try {
+        ingredients = JSON.parse(req.body.ingredients);
+    } catch (error) {
+        return res.status(400).json({ error: 'Invalid JSON for ingredients' });
+    }
+
     const cocktailData: CocktailMutation = {
         title: req.body.title,
         image: req.file ? req.file.filename : null,
         recipe: req.body.recipe,
         isPublished: false,
         user: req.user._id,
-        ingredients: req.body.ingredients
+        ingredients: ingredients
     };
 
     const cocktail = new Cocktail(cocktailData);
